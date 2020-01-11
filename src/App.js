@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import Home from './containers/Home/Home';
 import Layout from './hoc/Layout/Layout';
 
 class App extends Component {
@@ -9,7 +10,7 @@ class App extends Component {
       <div>
         <Layout>
           <Switch>
-            <Route path="/" exact component={null} />
+            <Route path="/" exact component={Home} />
           </Switch>
         </Layout>
       </div>
