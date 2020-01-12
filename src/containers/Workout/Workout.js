@@ -305,7 +305,7 @@ class PoseNet extends Component {
   };
 
   componentDidUpdate() {
-    console.log("should have been rerendered")
+    console.log("should have been rerendered");
   }
 
   render() {
@@ -313,16 +313,15 @@ class PoseNet extends Component {
       if (this.state.showThanks === true) {
         return (
           <div class="workout">
-            <Button type="primary" onClick={this.showModal}>
-              Open Modal
-            </Button>
             <Modal
               title="How do you feel now?"
               visible={this.state.visible}
-              onOk={()=>this.handleDone()}
-              onCancel={()=>this.handleDone()}
+              onOk={() => this.handleDone()}
+              onCancel={() => this.handleDone()}
             >
-              <BackButton link={`/exercise/${this.props.match.params.workoutType}`}></BackButton>
+              <BackButton
+                link={`/exercise/${this.props.match.params.workoutType}`}
+              ></BackButton>
               <h1> Feedback recorded </h1>
             </Modal>
           </div>
@@ -331,16 +330,12 @@ class PoseNet extends Component {
         return (
           <div class="workout">
             <Sound />
-            <Button type="primary" onClick={this.showModal}>
-              Open Modal
-            </Button>
             <Modal
               title="How do you feel now?"
               visible={this.state.visible}
-              onOk={()=>this.handleDone()}
-              onCancel={()=>this.handleDone()}
+              onOk={() => this.handleDone()}
+              onCancel={() => this.handleDone()}
             >
-              
               <EmotionScale function={this.showThanks} />
             </Modal>
           </div>
@@ -349,8 +344,16 @@ class PoseNet extends Component {
     } else {
       return (
         <div class="workout">
-          <div style={{ textAlign: "center", height: "100%", position: "relative" }}>
-            <BackButton link={`/exercise/${this.props.match.params.workoutType}`}></BackButton>
+          <div
+            style={{
+              textAlign: "center",
+              height: "100%",
+              position: "relative"
+            }}
+          >
+            <BackButton
+              link={`/exercise/${this.props.match.params.workoutType}`}
+            ></BackButton>
             <video
               style={{ display: "none" }}
               id="videoNoShow"
