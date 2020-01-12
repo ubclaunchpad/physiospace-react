@@ -140,5 +140,23 @@ html, body {
   position: fixed;
   top: 0px;
   width: 100%;
-  z-index: 100000;
+  z-index: 4;
+}
+
+.icon {
+  width: 300px;
+  height: auto;
+  margin: 0 auto;
+  position: relative;
+}
+
+.icon::before{
+  content: '';
+  display: inline-block;
+  width: 115px;
+  height: 115px;
+  -moz-border-radius: 7.5px;
+  -webkit-border-radius: 7.5px;
+  border-radius: 7.5px;
+  background-color: #ffffff;
 }

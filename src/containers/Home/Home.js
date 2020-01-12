@@ -4,6 +4,8 @@ import { Row, Col, Divider, Button } from 'antd';
 
 import Exercise from "../../components/UI/Exercise/Exercise";
 
+import icon from "../../assets/images/icon.png";
+
 class Home extends Component {
 
   constructor() {
@@ -41,7 +43,8 @@ class Home extends Component {
     if (!this.state.loggedIn) {
       return (
         <div className="container landing" >
-          <h1 style={{color: "white", fontSize: "54px"}}>Welcome</h1>
+          {/* <img className="icon" src={icon}></img> */}
+          <h1 style={{color: "white", fontSize: "54px"}}>Physio-Space</h1>
           <Button type="primary" size="large" className="home-button" onClick={this.loginAsPatient}>Login as Patient</Button>
           <Button style={{marginTop: "15px" }} type="primary" size="large" className="home-button" onClick={this.loginAsPT}>Login as Physio Therapist</Button>
         </div>

@@ -4,9 +4,9 @@ class Counter extends Component {
   render() {
     let {targetCount, targetDegree, currentDegree, count, countable} = this.props;
     return (
-      <div className="counter">
+      <div style={{fontWeight: 600, fontSize: "28px"}} className="counter">
         <span>{count} / {targetCount}</span>
-        <span style={{color: countable?"red":"green"}}> {currentDegree} / {targetDegree} </span>
+        <span style={{color: countable?"red":"light-green"}}> {currentDegree}° / {targetDegree}° deg </span>
       </div>
     );
   }

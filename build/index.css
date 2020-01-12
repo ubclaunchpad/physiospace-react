@@ -42,7 +42,7 @@ html, body {
   width: 100%;
   background-size: contain;
   background-position: center center;
-}
+} 
 
 .t {
   font-size: 17px !important;
@@ -114,7 +114,7 @@ html, body {
   height: 100%;
 }
 
-.workout-button {
+.workout-button, .workout-button:hover {
   background-color: transparent;
   border-color: white;
   border-width: 4px;
@@ -129,4 +129,16 @@ html, body {
 .containerr {
   flex-wrap: wrap!important;
   display: flex!important;
+}
+
+.counter {
+  padding: 25px;
+  background-color: #00000070;
+  font-size: 24px;
+  color: white;
+  text-align: center;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 4;
 }
