@@ -264,13 +264,12 @@ class PoseNet extends Component {
   render() {
     return (
       <div>
-        <BackButton link="/exercise" exact></BackButton>
+        <BackButton link={`/exercise/${this.props.match.params.workoutType}`} exact></BackButton>
         <div>
         <div style={{ marginLeft: 130 }}>
             <button className="btn btn-lg btn-success" onClick={this.startCountDown}>Start</button>
             <button className="btn btn-lg btn-alert" onClick={this.pauseCountDown}>Pause</button>
         </div>
-        <BackButton link="/exercise" exact></BackButton>
           <Timer value={this.state.value} seconds={this.state.seconds} />
           <video style={{display: 'none'}} id="videoNoShow" playsInline ref={this.getVideo} />
           <video

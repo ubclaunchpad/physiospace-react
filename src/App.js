@@ -13,8 +13,8 @@ class App extends Component {
         <Layout>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/exercise" exact component={Exercise} />
-            <Route path="/workout" exact component={Workout} />
+            <Route path="/exercise/:workoutType" component={Exercise} />
+            <Route path="/workout/:workoutType" component={Workout} />
           </Switch>
         </Layout>
       </div>
