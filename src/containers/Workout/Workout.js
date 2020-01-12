@@ -5,7 +5,8 @@ import * as posenet from "@tensorflow-models/posenet";
 import Timer from "../../components/UI/Timer/Timer";
 import BackButton from "../../components/UI/BackButton/BackButton";
 import calculateElbowAngle from "./algorithms/calculateElbowAngle";
-import { Modal, Button } from "antd";
+import { Modal } from "antd";
+
 import EmotionScale from "../../components/UI/EmotionScale/EmotionScale";
 
 class PoseNet extends Component {
@@ -282,35 +283,30 @@ class PoseNet extends Component {
     });
   };
 
-  handleOk = e => {
-    console.log(e);
+  handleDone = () => {
     this.setState({
-      visible: false
+      visible: false,
+      showThanks: false,
+      ranOut: true
     });
   };
 
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-      showThanks: false
-    });
-  };
+  componentDidUpdate() {
+    console.log("should have been rerendered")
+  }
 
   render() {
     if (this.state.ranOut === true) {
       if (this.state.showThanks === true) {
         return (
           <div>
-            <Button type="primary" onClick={this.showModal}>
-              Open Modal
-            </Button>
             <Modal
               title="How do you feel now?"
               visible={this.state.visible}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
+              onOk={()=>this.handleDone()}
+              onCancel={()=>this.handleDone()}
             >
+              <BackButton link={`/exercise/${this.props.match.params.workoutType}`}></BackButton>
               <h1> Feedback recorded </h1>
             </Modal>
           </div>
@@ -318,15 +314,13 @@ class PoseNet extends Component {
       } else if (this.state.visible === true) {
         return (
           <div>
-            <Button type="primary" onClick={this.showModal}>
-              Open Modal
-            </Button>
             <Modal
               title="How do you feel now?"
               visible={this.state.visible}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
+              onOk={()=>this.handleDone()}
+              onCancel={()=>this.handleDone()}
             >
+              
               <EmotionScale function={this.showThanks} />
             </Modal>
           </div>
@@ -335,7 +329,7 @@ class PoseNet extends Component {
     } else {
       return (
         <div>
-          <BackButton link="/exercise" exact></BackButton>
+          <BackButton link={`/exercise/${this.props.match.params.workoutType}`}></BackButton>
           <div>
             <div style={{ marginLeft: 130 }}>
               <button
@@ -351,7 +345,7 @@ class PoseNet extends Component {
                 Pause
               </button>
             </div>
-            <BackButton link="/exercise" exact></BackButton>
+            <BackButton link={`/exercise/${this.props.match.params.workoutType}`}></BackButton>
             <Timer value={this.state.value} seconds={this.state.seconds} />
             <video
               style={{ display: "none" }}
