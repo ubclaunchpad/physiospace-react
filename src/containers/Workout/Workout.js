@@ -151,8 +151,6 @@ class PoseNet extends Component {
 
       if (showVideo) {
         canvasContext.save()
-        canvasContext.scale(-1, 1)
-        canvasContext.translate(-videoWidth, 0)
         canvasContext.drawImage(video, 0, 0, videoWidth, videoHeight)
         canvasContext.restore()
       }
@@ -187,7 +185,7 @@ class PoseNet extends Component {
     return (
       <div>
         <div>
-          <video id="videoNoShow" playsInline ref={this.getVideo} />
+          <video style={{display: 'none'}} id="videoNoShow" playsInline ref={this.getVideo} />
           <canvas className="webcam" ref={this.getCanvas} />
         </div>
       </div>
