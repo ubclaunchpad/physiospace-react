@@ -4,8 +4,8 @@ import * as posenet from '@tensorflow-models/posenet'
 
 class PoseNet extends Component {
   static defaultProps = {
-    videoWidth: 900,
-    videoHeight: 700,
+    videoWidth: window.innerWidth,
+    videoHeight: window.innerHeight,
     flipHorizontal: true,
     algorithm: 'single-pose',
     showVideo: true,
@@ -70,7 +70,7 @@ class PoseNet extends Component {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
-        facingMode: 'user',
+        facingMode: 'face',
         width: videoWidth,
         height: videoHeight
       }
