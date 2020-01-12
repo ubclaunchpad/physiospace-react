@@ -1,13 +1,14 @@
-import {drawKeyPoints, drawSkeleton} from './utils'
-import React, {Component} from 'react'
+import { drawKeyPoints, drawSkeleton, drawAngle } from "./utils";
+import React, { Component } from "react";
 import * as posenet from '@tensorflow-models/posenet'
 import Timer from '../../components/UI/Timer/Timer'
 import BackButton from "../../components/UI/BackButton/BackButton";
+import calculateElbowAngle from "./algorithms/calculateElbowAngle"
 
 class PoseNet extends Component {
   static defaultProps = {
     videoWidth: window.innerWidth,
-    videoHeight: window.innerHeight,
+    videoHeight: window.innerHeight-300,
     flipHorizontal: true,
     algorithm: "single-pose",
     showVideo: true,
@@ -116,7 +117,12 @@ class PoseNet extends Component {
     }
 
     try {
-      this.posenet = await posenet.load();
+      this.posenet = await posenet.load({
+        architecture: 'ResNet50',
+        outputStride: 32,
+        inputResolution: { width: 257, height: 200 },
+        quantBytes: 2
+      });
     } catch (error) {
       throw new Error("PoseNet failed to load");
     } finally {
@@ -227,7 +233,8 @@ class PoseNet extends Component {
         canvasContext.restore();
       }
 
-      poses.forEach(({ score, keypoints }) => {
+      poses.forEach((pose) => {
+        let { score, keypoints } = pose;
         if (score >= minPoseConfidence) {
           if (showPoints) {
             drawKeyPoints(
@@ -237,6 +244,7 @@ class PoseNet extends Component {
               canvasContext
             );
           }
+          calculateElbowAngle(pose, canvasContext);
           if (showSkeleton) {
             drawSkeleton(
               keypoints,
@@ -256,6 +264,7 @@ class PoseNet extends Component {
   render() {
     return (
       <div>
+        <BackButton link="/exercise" exact></BackButton>
         <div>
         <div style={{ marginLeft: 130 }}>
             <button className="btn btn-lg btn-success" onClick={this.startCountDown}>Start</button>

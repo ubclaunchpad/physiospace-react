@@ -59,7 +59,7 @@ class Home extends Component {
         );
       } else {
       return (
-        <div className="container" >
+        <div style={{paddingTop: "25px"}} className="container" >
           <h1>Exercises</h1>
           <Divider type="horizontal" />
           <button className="btn btn-lg btn-danger" onClick={this.logOut}>Log Out</button>
