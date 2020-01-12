@@ -1,16 +1,19 @@
 import { drawAngle } from "../utils.js";
 
-export default function calculateLegAngle(pose, canvasContext) {
+export default function calculateKneeAngle(pose, canvasContext) {
   const leftHip = getItemFromName(pose, "leftHip");
-  const rightHip = getItemFromName(pose, "rightHip");
   const leftKnee = getItemFromName(pose, "leftKnee");
+  const leftAnkle = getItemFromName(pose, "leftAnkle");
+
+  const rightHip = getItemFromName(pose, "rightHip");
   const rightKnee = getItemFromName(pose, "rightKnee");
+  const rightAnkle = getItemFromName(pose, "rightAnkle");
 
-  drawAngle(leftKnee.position, leftHip.position, rightHip.position, canvasContext)
-  drawAngle(leftHip.position, rightHip.position, rightKnee.position, canvasContext)
+  drawAngle(leftAnkle.position, leftKnee.position, leftHip.position, canvasContext)
+  drawAngle(rightHip.position, rightKnee.position, rightAnkle.position, canvasContext)
 
 
-  return findAngle(rightHip.position, leftHip.position, leftKnee.position);
+  return findAngle(rightHip.position, rightKnee.position, rightAnkle.position);
 }
 
 function getItemFromName(pose, bodyPart) {

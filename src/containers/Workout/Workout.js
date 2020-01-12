@@ -5,6 +5,8 @@ import * as posenet from "@tensorflow-models/posenet";
 import Timer from "../../components/UI/Timer/Timer";
 import BackButton from "../../components/UI/BackButton/BackButton";
 import calculateElbowAngle from "./algorithms/calculateElbowAngle";
+import calculateLegAngle from "./algorithms/calculateLegAngle";
+import calculateKneeAngle from "./algorithms/calculateKneeAngle";
 import { Modal, Button } from "antd";
 
 import EmotionScale from "../../components/UI/EmotionScale/EmotionScale";
@@ -252,7 +254,18 @@ class PoseNet extends Component {
               canvasContext
             );
           }
-          calculateElbowAngle(pose, canvasContext);
+          switch(this.props.match.params.workoutType){
+            case "elbow_flexion":
+              calculateElbowAngle(pose, canvasContext);
+              break;
+            case "leg_flexion":
+              calculateLegAngle(pose, canvasContext);
+              break;
+            case "knee_flexion":
+              calculateKneeAngle(pose, canvasContext);
+              break;
+            default:
+          }
           if (showSkeleton) {
             drawSkeleton(
               keypoints,
