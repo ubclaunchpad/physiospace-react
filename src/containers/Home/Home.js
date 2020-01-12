@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Row, Col, Divider, Button } from 'antd';
 
 import Exercise from "../../components/UI/Exercise/Exercise";
-import FeedbackModal from "../../components/UI/FeedbackModal/FeedbackModal";
 
 class Home extends Component {
 
@@ -115,7 +114,6 @@ class Home extends Component {
               />
             </Col>
           </Row>
-          <FeedbackModal />
         </div>
       );
     }
