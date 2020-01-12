@@ -45,7 +45,7 @@ class PoseNet extends Component {
       completed: false,
       visible: false,
       showThanks: false,
-
+      loading: true,
       targetCount: 10,
       targetDegree: 40,
       currentDegree: 41,
