@@ -4,10 +4,13 @@ import React, { Component } from "react";
 import * as posenet from "@tensorflow-models/posenet";
 import Timer from "../../components/UI/Timer/Timer";
 import BackButton from "../../components/UI/BackButton/BackButton";
-import calculateElbowAngle from "./algorithms/calculateElbowAngle";
+import {calculateElbowAngle} from "./algorithms/helpers.js";
+import calculateLegAngle from "./algorithms/calculateLegAngle";
+import calculateKneeAngle from "./algorithms/calculateKneeAngle";
 import { Modal, Button } from "antd";
 
 import EmotionScale from "../../components/UI/EmotionScale/EmotionScale";
+import Counter from "./Counter";
 import Sound from "../../components/UI/Sound/Sound";
 
 class PoseNet extends Component {
@@ -41,13 +44,48 @@ class PoseNet extends Component {
       paused: false,
       ranOut: false,
       visible: false,
-      showThanks: false
+      showThanks: false,
+
+      targetCount: 5,
+      targetDegree: 40,
+      currentDegree: 41,
+      resetDegree: 90,
+      count: 0,
+      countable: true
     };
     this.secondsRemaining;
     this.intervalHandle;
     this.startCountDown = this.startCountDown.bind(this);
     this.pauseCountDown = this.pauseCountDown.bind(this);
     this.tick = this.tick.bind(this);
+  }
+
+  update(pose, canvasContext) {
+    let {targetCount, targetDegree, currentDegree, count, countable, resetDegree} = this.state;
+
+    this.setState({
+      currentDegree: Math.round(calculateElbowAngle(pose, canvasContext))
+    })
+
+    if(count >= targetCount) {
+      clearInterval(this.intervalHandle);
+      console.log("display feedback!!");
+      this.state.ranOut = true;
+      this.showModal();
+    }
+
+    if(currentDegree <= targetDegree && countable) {
+      this.setState({
+        count: count+=1,
+        countable: false
+      })
+    }
+
+    if(currentDegree >= resetDegree && !countable) {
+      this.setState({
+        countable: true
+      })
+    }
   }
 
   tick() {
@@ -252,7 +290,18 @@ class PoseNet extends Component {
               canvasContext
             );
           }
-          calculateElbowAngle(pose, canvasContext);
+          switch(this.props.match.params.workoutType){
+            case "elbow_flexion":
+              calculateElbowAngle(pose, canvasContext);
+              break;
+            case "leg_flexion":
+              calculateLegAngle(pose, canvasContext);
+              break;
+            case "knee_flexion":
+              calculateKneeAngle(pose, canvasContext);
+              break;
+            default:
+          }
           if (showSkeleton) {
             drawSkeleton(
               keypoints,
@@ -262,6 +311,7 @@ class PoseNet extends Component {
               canvasContext
             );
           }
+          this.update(pose, canvasContext);
         }
       });
       requestAnimationFrame(findPoseDetectionFrame);
@@ -331,13 +381,18 @@ class PoseNet extends Component {
     } else {
       return (
         <div class="workout">
-          <div
-            style={{
-              textAlign: "center",
-              height: "100%",
-              position: "relative"
-            }}
-          >
+          <Counter targetCount = {this.state.targetCount}
+                    targetDegree = {this.state.targetDegree}
+                    currentDegree = {this.state.currentDegree}
+                    count = {this.state.count}
+                    countable = {this.state.countable} />
+            <div
+              style={{
+                textAlign: "center",
+                height: "100%",
+                position: "relative"
+              }}
+            >
             <BackButton
               link={`/exercise/${this.props.match.params.workoutType}`}
             ></BackButton>

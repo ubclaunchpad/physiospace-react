@@ -1,19 +1,18 @@
 import { drawAngle } from "../utils.js";
 
-export default function calculateElbowAngle(pose, canvasContext) {
-  const leftShoulder = getItemFromName(pose, "leftShoulder");
-  const leftElbow = getItemFromName(pose, "leftElbow");
-  const leftWrist = getItemFromName(pose, "leftWrist");
+export function calculateElbowAngle(pose, canvasContext) {
+  // const leftShoulder = getItemFromName(pose, "leftShoulder");
+  // const leftElbow = getItemFromName(pose, "leftElbow");
+  // const leftWrist = getItemFromName(pose, "leftWrist");
 
   const rightShoulder = getItemFromName(pose, "rightShoulder");
   const rightElbow = getItemFromName(pose, "rightElbow");
   const rightWrist = getItemFromName(pose, "rightWrist");
 
-  drawAngle(leftShoulder.position, leftElbow.position, leftWrist.position, canvasContext)
+  // drawAngle(leftShoulder.position, leftElbow.position, leftWrist.position, canvasContext)
   drawAngle(rightWrist.position, rightElbow.position, rightShoulder.position, canvasContext)
 
-
-  return findAngle(leftShoulder.position, leftElbow.position, leftWrist.position);
+  return findAngle(rightShoulder.position, rightElbow.position, rightWrist.position);
 }
 
 function getItemFromName(pose, bodyPart) {

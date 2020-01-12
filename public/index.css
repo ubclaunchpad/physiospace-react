@@ -130,3 +130,15 @@ html, body {
   flex-wrap: wrap!important;
   display: flex!important;
 }
+
+.counter {
+  padding: 25px;
+  background-color: #00000070;
+  font-size: 24px;
+  color: white;
+  text-align: center;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 100000;
+}
