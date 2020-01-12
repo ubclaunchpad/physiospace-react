@@ -4,7 +4,7 @@ class Timer extends Component {
   render() {
     return (
       <div>
-        <h1 style={{ fontSize: 100, marginLeft: 100 }}>
+        <h1 style={{ fontSize: 40 }}>
           {this.props.value}:{this.props.seconds}
         </h1>
       </div>

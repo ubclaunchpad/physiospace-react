@@ -1,5 +1,6 @@
 import { drawKeyPoints, drawSkeleton, drawAngle } from "./utils";
 import React, { Component } from "react";
+
 import * as posenet from "@tensorflow-models/posenet";
 import Timer from "../../components/UI/Timer/Timer";
 import BackButton from "../../components/UI/BackButton/BackButton";
@@ -10,7 +11,8 @@ import EmotionScale from "../../components/UI/EmotionScale/EmotionScale";
 class PoseNet extends Component {
   static defaultProps = {
     videoWidth: window.innerWidth,
-    videoHeight: window.innerHeight - 300,
+
+    videoHeight: window.innerHeight - 220,
     flipHorizontal: true,
     algorithm: "single-pose",
     showVideo: true,
