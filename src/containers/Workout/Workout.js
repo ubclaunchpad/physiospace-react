@@ -1,6 +1,7 @@
 import { drawKeyPoints, drawSkeleton, drawAngle } from "./utils";
 import React, { Component } from "react";
-import * as posenet from "@tensorflow-models/posenet";
+import * as posenet from '@tensorflow-models/posenet'
+import Timer from '../../components/UI/Timer/Timer'
 import BackButton from "../../components/UI/BackButton/BackButton";
 import calculateElbowAngle from "./algorithms/calculateElbowAngle"
 
@@ -25,7 +26,67 @@ class PoseNet extends Component {
   };
 
   constructor(props) {
-    super(props, PoseNet.defaultProps);
+    super(props, PoseNet.defaultProps)
+    this.state = {
+        seconds: '00',
+        isClicked : false,
+        value: '2',
+        started: false
+    }
+    this.secondsRemaining;
+    this.intervalHandle;
+    this.startCountDown = this.startCountDown.bind(this);
+    this.pauseCountDown = this.pauseCountDown.bind(this);
+    this.tick = this.tick.bind(this);
+  }
+
+  tick() {
+    var min = Math.floor(this.secondsRemaining / 60);
+    var sec = this.secondsRemaining - (min * 60);
+
+    this.setState({
+      value: min,
+      seconds: sec,
+    })
+
+    if (sec < 10) {
+      this.setState({
+        seconds: "0" + this.state.seconds,
+      })
+
+    }
+
+    if (min < 10) {
+      this.setState({
+        value: "0" + min,
+      })
+
+    }
+
+    if (min === 0 & sec === 0) {
+      clearInterval(this.intervalHandle);
+    }
+
+
+    this.secondsRemaining--
+  }
+
+  startCountDown() {
+    this.intervalHandle = setInterval(this.tick, 1000);
+    if (this.state.started == false) {
+        let time = this.state.value;
+        this.secondsRemaining = time * 60;
+        this.setState({
+            started : true
+          });
+    }
+    this.setState({
+      isClicked : true
+    });
+  }
+
+  pauseCountDown() {
+    clearInterval(this.intervalHandle);
   }
 
   getCanvas = elem => {
@@ -195,6 +256,13 @@ class PoseNet extends Component {
       <div>
         <BackButton link="/exercise" exact></BackButton>
         <div>
+        <div style={{ marginLeft: 130 }}>
+            <button className="btn btn-lg btn-success" disabled={this.state.started} onClick={this.startCountDown}>Start</button>
+            <button className="btn btn-lg btn-alert" onClick={this.pauseCountDown}>Pause</button>
+        </div>
+        <BackButton link="/exercise" exact></BackButton>
+          <Timer value={this.state.value} seconds={this.state.seconds} />
+          <video style={{display: 'none'}} id="videoNoShow" playsInline ref={this.getVideo} />
           <video
             style={{ display: "none" }}
             id="videoNoShow"
