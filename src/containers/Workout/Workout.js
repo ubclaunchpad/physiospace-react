@@ -5,7 +5,7 @@ import * as posenet from "@tensorflow-models/posenet";
 import Timer from "../../components/UI/Timer/Timer";
 import BackButton from "../../components/UI/BackButton/BackButton";
 import calculateElbowAngle from "./algorithms/calculateElbowAngle";
-import { Modal } from "antd";
+import { Modal, Button } from "antd";
 
 import EmotionScale from "../../components/UI/EmotionScale/EmotionScale";
 
@@ -299,7 +299,10 @@ class PoseNet extends Component {
     if (this.state.ranOut === true) {
       if (this.state.showThanks === true) {
         return (
-          <div>
+          <div class="workout">
+            <Button type="primary" onClick={this.showModal}>
+              Open Modal
+            </Button>
             <Modal
               title="How do you feel now?"
               visible={this.state.visible}
@@ -313,7 +316,10 @@ class PoseNet extends Component {
         );
       } else if (this.state.visible === true) {
         return (
-          <div>
+          <div class="workout">
+            <Button type="primary" onClick={this.showModal}>
+              Open Modal
+            </Button>
             <Modal
               title="How do you feel now?"
               visible={this.state.visible}
@@ -328,25 +334,9 @@ class PoseNet extends Component {
       }
     } else {
       return (
-        <div>
-          <BackButton link={`/exercise/${this.props.match.params.workoutType}`}></BackButton>
-          <div>
-            <div style={{ marginLeft: 130 }}>
-              <button
-                className="btn btn-lg btn-success"
-                onClick={this.startCountDown}
-              >
-                Start
-              </button>
-              <button
-                className="btn btn-lg btn-alert"
-                onClick={this.pauseCountDown}
-              >
-                Pause
-              </button>
-            </div>
+        <div class="workout">
+          <div style={{ textAlign: "center", height: "100%", position: "relative" }}>
             <BackButton link={`/exercise/${this.props.match.params.workoutType}`}></BackButton>
-            <Timer value={this.state.value} seconds={this.state.seconds} />
             <video
               style={{ display: "none" }}
               id="videoNoShow"
@@ -360,6 +350,12 @@ class PoseNet extends Component {
               ref={this.getVideo}
             />
             <canvas className="webcam" ref={this.getCanvas} />
+            <div style={{height: "auto", position: "absolute", width: "100%", bottom: "0"}}>
+              <p>These are instructions on what to do!</p>
+              <Button style={{marginRight: "15px"}} type="primary" size="large" className="workout-button" onClick={this.startCountDown}>Start</Button>
+              <Button type="primary" size="large" className="workout-button" onClick={this.pauseCountDown}>Pause</Button>
+              <Timer value={this.state.value} seconds={this.state.seconds} />
+            </div>
           </div>
         </div>
       );
