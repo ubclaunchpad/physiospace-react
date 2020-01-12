@@ -31,7 +31,8 @@ class PoseNet extends Component {
         seconds: '00',
         isClicked : false,
         value: '2',
-        started: false
+        started: false,
+        paused: false
     }
     this.secondsRemaining;
     this.intervalHandle;
@@ -72,21 +73,30 @@ class PoseNet extends Component {
   }
 
   startCountDown() {
-    this.intervalHandle = setInterval(this.tick, 1000);
     if (this.state.started == false) {
+        this.intervalHandle = setInterval(this.tick, 1000);
         let time = this.state.value;
         this.secondsRemaining = time * 60;
         this.setState({
-            started : true
+            started : true,
+            paused: false,
+            isClicked: true
+          });
+    } else if(this.state.paused === true) {
+        this.intervalHandle = setInterval(this.tick, 1000);
+        this.setState({
+            isClicked : true,
+            paused: false
           });
     }
-    this.setState({
-      isClicked : true
-    });
+    
   }
 
   pauseCountDown() {
     clearInterval(this.intervalHandle);
+    this.setState({
+        paused: true
+    })
   }
 
   getCanvas = elem => {
