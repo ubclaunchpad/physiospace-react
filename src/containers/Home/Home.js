@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Row, Col, Divider } from 'antd';
+import { Row, Col, Divider, Button } from 'antd';
 
 import Exercise from "../../components/UI/Exercise/Exercise";
 import FeedbackModal from "../../components/UI/FeedbackModal/FeedbackModal";
@@ -41,28 +41,38 @@ class Home extends Component {
   render() {
     if (!this.state.loggedIn) {
       return (
-        <div className="container" >
-          <h1>Welcome</h1>
-          <Divider type="horizontal" />
-          <button className="btn btn-lg btn-success" onClick={this.loginAsPatient}>Login as Patient</button>
-          <button className="btn btn-lg btn-alert" onClick={this.loginAsPT}>Login as Physio Therapist</button>
+        <div className="container landing" >
+          <h1 style={{color: "white", fontSize: "54px"}}>Welcome</h1>
+          <Button type="primary" size="large" className="home-button" onClick={this.loginAsPatient}>Login as Patient</Button>
+          <Button style={{marginTop: "15px" }} type="primary" size="large" className="home-button" onClick={this.loginAsPT}>Login as Physio Therapist</Button>
         </div>
       );
     } else {
       if (this.state.pt) {
         return (
           <div className="container" >
-            <h1>PhysioTherapist's Dashboard</h1>
-            <button className="btn btn-lg btn-danger" onClick={this.logOut}>Log Out</button>
-            <Divider type="horizontal" />
+            <Row >
+            <Col span={12}>
+              <h1>Dashboard</h1> 
+            </Col>
+            <Col span={12}>
+              <Button type="primary" size="large" style={{float: "right"}} onClick={this.logOut}>Log Out</Button>
+            </Col>
+          </Row><Divider type="horizontal" />
           </div>
         );
       } else {
       return (
         <div style={{paddingTop: "25px"}} className="container" >
-          <h1>Exercises</h1>
+          <Row >
+            <Col span={12}>
+              <h1>Exercises</h1> 
+            </Col>
+            <Col span={12}>
+              <Button type="primary" size="large" style={{float: "right"}} onClick={this.logOut}>Log Out</Button>
+            </Col>
+          </Row>
           <Divider type="horizontal" />
-          <button className="btn btn-lg btn-danger" onClick={this.logOut}>Log Out</button>
           <Row gutter={20}>
             <Col span={12}>
               <Exercise

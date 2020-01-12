@@ -21,19 +21,7 @@ class Layout extends Component {
     }
 
     render () {
-        return (
-            <div>{this.props.children}
-            {/*<Aux>
-                <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
-                <SideDrawer
-                    open={this.state.showSideDrawer}
-                    closed={this.sideDrawerClosedHandler} />
-                <main className={classes.Content}>
-                    {this.props.children}
-                </main>
-            </Aux>*/}
-            </div>
-        )
+        return this.props.children;
     }
 }
 

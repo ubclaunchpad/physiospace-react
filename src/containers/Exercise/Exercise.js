@@ -19,7 +19,7 @@ class Exercise extends Component {
         <div style={{paddingTop: "15px"}} className="container">
           <Row style={{marginBottom: "15px"}}>
             <Col span={16}>
-              <Title className="t">Arm Flexing</Title>
+              <Title className="t2">Arm Flexing</Title>
               <Paragraph className="p">Info</Paragraph>
             </Col>
             <Col span={8}>

@@ -257,7 +257,7 @@ class PoseNet extends Component {
         <BackButton link="/exercise" exact></BackButton>
         <div>
         <div style={{ marginLeft: 130 }}>
-            <button className="btn btn-lg btn-success" disabled={this.state.started} onClick={this.startCountDown}>Start</button>
+            <button className="btn btn-lg btn-success" onClick={this.startCountDown}>Start</button>
             <button className="btn btn-lg btn-alert" onClick={this.pauseCountDown}>Pause</button>
         </div>
         <BackButton link="/exercise" exact></BackButton>
