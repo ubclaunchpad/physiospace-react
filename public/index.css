@@ -1,0 +1,28 @@
+
+.ant-card-bordered, .ant-card-hoverable:hover {
+  border: none;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0);
+  border-radius: 18px;
+  margin-bottom: 20px;
+}
+
+.ant-card-body {
+  padding: 5px;
+  padding-top: 15px;
+}
+
+.ant-divider-horizontal {
+  margin-bottom: 12px;
+  margin-top: 0px;
+}
+
+.ant-card-cover img {
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.05);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.05);
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.05);
+  border-radius: 12px;
+}
+
+main {
+  padding: 0 35px;
+}
