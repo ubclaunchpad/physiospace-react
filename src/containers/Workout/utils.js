@@ -1,5 +1,5 @@
 import * as posenet from '@tensorflow-models/posenet'
-import { findAngle } from "./algorithms/calculateElbowAngle";
+import { findAngle } from "./algorithms/helpers";
 
 const pointRadius = 3
 
@@ -90,7 +90,6 @@ function drawArc(
   
   let startingAngle = Math.atan2(y1-y, x1-x);
   let endingAngle = Math.atan2(y2-y, x2-x);
-  console.log("drawn", x, y, startingAngle, endingAngle)
   canvasContext.beginPath()
   canvasContext.arc(x * scale, y * scale, 20, startingAngle, endingAngle);
   canvasContext.lineWidth = lineWidth
