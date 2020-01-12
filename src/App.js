@@ -3,12 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 
 import Home from './containers/Home/Home';
 import Exercise from './containers/Exercise/Exercise';
+import Workout from './containers/Workout/Workout';
 import Layout from './hoc/Layout/Layout';
-
-import classes from './App.css';
-
-console.dir(classes);
-
 
 class App extends Component {
   render () {
@@ -18,6 +14,7 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/exercise" exact component={Exercise} />
+            <Route path="/workout" exact component={Workout} />
           </Switch>
         </Layout>
       </div>
