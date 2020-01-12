@@ -16,6 +16,7 @@ class Exercise extends Component {
     switch(props.match.params.workoutType) {
       case "elbow_flexion":
         this.state = {
+          img: "https://www.saebo.com/wp-content/uploads/2015/10/elbowstretch-1.png",
           title: "Elbow Flexion",
           info: "Strech your elbows",
           reps: "40 reps or 4 mins",
@@ -24,6 +25,7 @@ class Exercise extends Component {
         break;
       case "leg_flexion":
         this.state = {
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgYBD07_yGx6YKUIUMrFL2v5ml8kygGIjrKsQFVzxf7dF9kv3L&s",
           title: "Leg Flexion",
           info: "Strech your leg",
           reps: "40 reps or 4 mins",
@@ -32,6 +34,7 @@ class Exercise extends Component {
         break;
       case "lateral_leg_raises":
         this.state = {
+          img: "https://i.pinimg.com/originals/30/e9/a5/30e9a555b31473ebdf703b52cec82b88.png",
           title: "Lateral Leg Raises",
           info: "Strech your legs",
           reps: "40 reps or 4 mins",
@@ -40,6 +43,7 @@ class Exercise extends Component {
         break;
       case "knee_flexion":
         this.state = {
+          img: "https://www.saebo.com/wp-content/uploads/2015/09/image061-300x260.png",
           title: "Knee Flexion",
           info: "Strech your knees",
           reps: "40 reps or 4 mins",
@@ -48,6 +52,7 @@ class Exercise extends Component {
         break;
       default:
         this.state = {
+          img: "https://www.saebo.com/wp-content/uploads/2015/10/elbowstretch-1.png",
           title: "Elbow Flexion",
           info: "Strech your elbows",
           reps: "40 reps or 4 mins",
@@ -60,13 +65,13 @@ class Exercise extends Component {
     return (
       <div>
         <BackButton link="/" exact></BackButton>
-        <div className="background" style={{backgroundImage: `url('https://www.saebo.com/wp-content/uploads/2015/10/elbowstretch-1.png')`}}>
+        <div className="background" style={{backgroundImage: `url('${this.state.img}')`}}>
         </div>
         <div style={{paddingTop: "15px"}} className="container">
           <Row style={{marginBottom: "15px"}}>
             <Col span={16}>
-    <Title className="t">{this.state.title}</Title>
-    <Paragraph className="p">{this.state.info}</Paragraph>
+              <Title className="t">{this.state.title}</Title>
+              <Paragraph className="p">{this.state.info}</Paragraph>
             </Col>
             <Col span={8}>
               <Title className="t">{this.state.reps}</Title>

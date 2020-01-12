@@ -9,7 +9,6 @@ import Layout from './hoc/Layout/Layout';
 class App extends Component {
   render () {
     return (
-      <div>
         <Layout>
           <Switch>
             <Route path="/" exact component={Home} />
@@ -17,7 +16,6 @@ class App extends Component {
             <Route path="/workout/:workoutType" component={Workout} />
           </Switch>
         </Layout>
-      </div>
     );
   }
 }
