@@ -1,4 +1,5 @@
 import * as posenet from '@tensorflow-models/posenet'
+import { findAngle } from "./algorithms/calculateElbowAngle";
 
 const pointRadius = 3
 
@@ -43,7 +44,7 @@ export function drawKeyPoints(
   })
 }
 
-function drawSegment(
+export function drawSegment(
   [firstX, firstY],
   [nextX, nextY],
   color,
@@ -54,6 +55,44 @@ function drawSegment(
   canvasContext.beginPath()
   canvasContext.moveTo(firstX * scale, firstY * scale)
   canvasContext.lineTo(nextX * scale, nextY * scale)
+  canvasContext.lineWidth = lineWidth
+  canvasContext.strokeStyle = color
+  canvasContext.stroke()
+}
+
+export function drawAngle(A, B, C, canvasContext) {
+  drawArc(
+    toTuple(B),
+    toTuple(A),
+    toTuple(C),
+    "#ffffff",
+    5,
+    1,
+    canvasContext
+  )
+  // canvasContext.arc(B.x-20, B.y, 10, 0, 2 * Math.PI, false);
+  // canvasContext.fillStyle = '#00000080';
+  // canvasContext.fill();
+  canvasContext.font = "normal 18px Sans";
+  canvasContext.fillStyle = "#ffffff";
+  canvasContext.fillText(Math.round(findAngle(A, B, C)), B.x-20, B.y-20);
+}
+
+function drawArc(
+  [x, y],
+  [x1, y1],
+  [x2, y2],
+  color,
+  lineWidth,
+  scale,
+  canvasContext
+) {
+  
+  let startingAngle = Math.atan2(y1-y, x1-x);
+  let endingAngle = Math.atan2(y2-y, x2-x);
+  console.log("drawn", x, y, startingAngle, endingAngle)
+  canvasContext.beginPath()
+  canvasContext.arc(x * scale, y * scale, 20, startingAngle, endingAngle);
   canvasContext.lineWidth = lineWidth
   canvasContext.strokeStyle = color
   canvasContext.stroke()

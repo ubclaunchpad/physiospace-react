@@ -55,3 +55,23 @@ html, body {
   font-size: 13px !important;
   margin-bottom: 0px !important;
 }
+
+.back {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  color: white;
+  font-size: 16px;
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #00000080;
+  z-index: 1000;
+}
+
+.back svg {
+  position: relative;
+  top: 11px;
+  right: 1px;
+}

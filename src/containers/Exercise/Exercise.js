@@ -13,6 +13,7 @@ class Exercise extends Component {
   render() {
     return (
       <div>
+        <BackButton link="/" exact></BackButton>
         <div className="background" style={{backgroundImage: `url('https://www.saebo.com/wp-content/uploads/2015/10/elbowstretch-1.png')`}}>
         </div>
         <div style={{paddingTop: "15px"}} className="container">
