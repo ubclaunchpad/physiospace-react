@@ -303,8 +303,8 @@ class PoseNet extends Component {
             <Modal
               title="How do you feel now?"
               visible={this.state.visible}
-              onOk={() => this.handleDone()}
-              onCancel={() => this.handleDone()}
+              cancelButtonProps={{ style: { display: "none" } }}
+              okButtonProps={{ style: { display: "none" } }}
             >
               <BackButton
                 link={`/exercise/${this.props.match.params.workoutType}`}
@@ -320,8 +320,8 @@ class PoseNet extends Component {
             <Modal
               title="How do you feel now?"
               visible={this.state.visible}
-              onOk={() => this.handleDone()}
-              onCancel={() => this.handleDone()}
+              cancelButtonProps={{ style: { display: "none" } }}
+              okButtonProps={{ style: { display: "none" } }}
             >
               <EmotionScale function={this.showThanks} />
             </Modal>
