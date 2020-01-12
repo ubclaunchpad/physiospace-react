@@ -6,29 +6,32 @@ class EmotionScale extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          display: "flex",
+          justifyContent: "space-evenly"
+        }}
+      >
         {" "}
         <Avatar
           onClick={this.props.function}
-          size={100}
           style={{ backgroundColor: "#E4300A" }}
           icon="user"
         />{" "}
         <Avatar
           onClick={this.props.function}
-          size={100}
           style={{ backgroundColor: "#f56a00" }}
           icon="user"
         />{" "}
         <Avatar
           onClick={this.props.function}
-          size={100}
           style={{ backgroundColor: "#ECE50B" }}
           icon="user"
         />{" "}
         <Avatar
           onClick={this.props.function}
-          size={100}
           style={{ backgroundColor: "#0CB404" }}
           icon="user"
         />
