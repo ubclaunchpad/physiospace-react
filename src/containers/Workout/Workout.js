@@ -1,6 +1,7 @@
 import {drawKeyPoints, drawSkeleton} from './utils'
 import React, {Component} from 'react'
 import * as posenet from '@tensorflow-models/posenet'
+import Timer from '../../components/UI/Timer/Timer'
 
 class PoseNet extends Component {
   static defaultProps = {
@@ -24,6 +25,55 @@ class PoseNet extends Component {
 
   constructor(props) {
     super(props, PoseNet.defaultProps)
+    this.state = {
+        seconds: '00',
+        isClicked : false,
+        value: '2',
+    }
+    this.secondsRemaining;
+    this.intervalHandle;
+    this.startCountDown = this.startCountDown.bind(this);
+    this.tick = this.tick.bind(this);
+  }
+
+  tick() {
+    var min = Math.floor(this.secondsRemaining / 60);
+    var sec = this.secondsRemaining - (min * 60);
+
+    this.setState({
+      value: min,
+      seconds: sec,
+    })
+
+    if (sec < 10) {
+      this.setState({
+        seconds: "0" + this.state.seconds,
+      })
+
+    }
+
+    if (min < 10) {
+      this.setState({
+        value: "0" + min,
+      })
+
+    }
+
+    if (min === 0 & sec === 0) {
+      clearInterval(this.intervalHandle);
+    }
+
+
+    this.secondsRemaining--
+  }
+
+  startCountDown() {
+    this.intervalHandle = setInterval(this.tick, 1000);
+    let time = this.state.value;
+    this.secondsRemaining = time * 60;
+    this.setState({
+      isClicked : true
+    })
   }
 
   getCanvas = elem => {
@@ -185,6 +235,10 @@ class PoseNet extends Component {
     return (
       <div>
         <div>
+        <div style={{ marginLeft: 130 }}>
+            <button className="btn btn-lg btn-success" onClick={this.startCountDown}>Start</button>
+        </div>
+          <Timer value={this.state.value} seconds={this.state.seconds} />
           <video style={{display: 'none'}} id="videoNoShow" playsInline ref={this.getVideo} />
           <canvas className="webcam" ref={this.getCanvas} />
         </div>
@@ -193,4 +247,4 @@ class PoseNet extends Component {
   }
 }
 
-export default PoseNet
+export default PoseNet;
