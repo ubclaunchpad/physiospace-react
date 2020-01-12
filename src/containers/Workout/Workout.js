@@ -61,6 +61,8 @@ class PoseNet extends Component {
   }
 
   update(pose, canvasContext) {
+    if(this.state.completed) return;
+    
     let {targetCount, targetDegree, currentDegree, count, countable, resetDegree} = this.state;
 
     this.setState({
@@ -69,7 +71,9 @@ class PoseNet extends Component {
 
     if(count >= targetCount) {
       clearInterval(this.intervalHandle);
-      this.state.completed = true;
+      this.setState({
+        completed: true
+      })
       this.showModal();
     }
 
@@ -110,7 +114,9 @@ class PoseNet extends Component {
 
     if ((min === 0) & (sec === 0)) {
       clearInterval(this.intervalHandle);
-      this.state.completed = true;
+      this.setState({
+        completed: true
+      })
       this.showModal();
     }
 
@@ -358,7 +364,7 @@ class PoseNet extends Component {
             </Modal>
           </div>
         );
-      } else if (this.state.visible === true) {
+      } else {
         return (
           <div class="workout">
             <Sound />
