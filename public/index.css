@@ -1,4 +1,7 @@
 
+html, body {
+  font-family: 'Nunito'
+}
 .ant-card-bordered, .ant-card-hoverable:hover {
   border: none;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0);
@@ -23,6 +26,32 @@
   border-radius: 12px;
 }
 
-main {
+.container {
   padding: 0 35px;
+}
+
+.ant-card img{
+  transition: all .2s ease-in-out;
+}
+
+.ant-card:hover img {
+  transform: scale(1.1);
+}
+
+.background {
+  min-height: 200px;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+}
+
+.t {
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  margin-bottom: 0px !important;
+}
+
+.p {
+  font-size: 13px !important;
+  margin-bottom: 0px !important;
 }

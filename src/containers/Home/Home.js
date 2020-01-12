@@ -8,7 +8,7 @@ import FeedbackModal from "../../components/UI/FeedbackModal/FeedbackModal";
 class Home extends Component {
   render() {
     return (
-      <div>
+      <div className="container" >
         <h1>Exercises</h1>
         <Divider type="horizontal" />
         <Row gutter={20}>
