@@ -4,10 +4,10 @@ import React, { Component } from "react";
 import * as posenet from "@tensorflow-models/posenet";
 import Timer from "../../components/UI/Timer/Timer";
 import BackButton from "../../components/UI/BackButton/BackButton";
-import {calculateElbowAngle} from "./algorithms/helpers.js";
+import { calculateElbowAngle } from "./algorithms/helpers.js";
 import calculateLegAngle from "./algorithms/calculateLegAngle";
 import calculateKneeAngle from "./algorithms/calculateKneeAngle";
-import { Modal, Button } from "antd";
+import { Modal, Button, Spin, Row, Col } from "antd";
 
 import EmotionScale from "../../components/UI/EmotionScale/EmotionScale";
 import Counter from "./Counter";
@@ -45,7 +45,7 @@ class PoseNet extends Component {
       completed: false,
       visible: false,
       showThanks: false,
-
+      loading: true,
       targetCount: 5,
       targetDegree: 40,
       currentDegree: 41,
@@ -61,33 +61,40 @@ class PoseNet extends Component {
   }
 
   update(pose, canvasContext) {
-    if(this.state.completed) return;
-    
-    let {targetCount, targetDegree, currentDegree, count, countable, resetDegree} = this.state;
+    if (this.state.completed) return;
+
+    let {
+      targetCount,
+      targetDegree,
+      currentDegree,
+      count,
+      countable,
+      resetDegree
+    } = this.state;
 
     this.setState({
       currentDegree: Math.round(calculateElbowAngle(pose, canvasContext))
-    })
+    });
 
-    if(count >= targetCount) {
+    if (count >= targetCount) {
       clearInterval(this.intervalHandle);
       this.setState({
         completed: true
-      })
+      });
       this.showModal();
     }
 
-    if(currentDegree <= targetDegree && countable) {
+    if (currentDegree <= targetDegree && countable) {
       this.setState({
-        count: count+=1,
+        count: (count += 1),
         countable: false
-      })
+      });
     }
 
-    if(currentDegree >= resetDegree && !countable) {
+    if (currentDegree >= resetDegree && !countable) {
       this.setState({
         countable: true
-      })
+      });
     }
   }
 
@@ -116,7 +123,7 @@ class PoseNet extends Component {
       clearInterval(this.intervalHandle);
       this.setState({
         completed: true
-      })
+      });
       this.showModal();
     }
 
@@ -295,7 +302,7 @@ class PoseNet extends Component {
               canvasContext
             );
           }
-          switch(this.props.match.params.workoutType){
+          switch (this.props.match.params.workoutType) {
             case "elbow_flexion":
               calculateElbowAngle(pose, canvasContext);
               break;
@@ -346,7 +353,14 @@ class PoseNet extends Component {
   };
 
   render() {
-    console.log(this.state)
+    let spin = this.state.loading ? (
+      <Row justify="flex" align="middle">
+        <Col md={24}>
+          <Spin style={{ height: "100px", marginTop: "200px" }} size="large" />
+        </Col>
+      </Row>
+    ) : null;
+    console.log(this.state);
     if (this.state.completed === true) {
       if (this.state.showThanks === true) {
         return (
@@ -382,18 +396,20 @@ class PoseNet extends Component {
     } else {
       return (
         <div class="workout">
-          <Counter targetCount = {this.state.targetCount}
-                    targetDegree = {this.state.targetDegree}
-                    currentDegree = {this.state.currentDegree}
-                    count = {this.state.count}
-                    countable = {this.state.countable} />
-            <div
-              style={{
-                textAlign: "center",
-                height: "100%",
-                position: "relative"
-              }}
-            >
+          <Counter
+            targetCount={this.state.targetCount}
+            targetDegree={this.state.targetDegree}
+            currentDegree={this.state.currentDegree}
+            count={this.state.count}
+            countable={this.state.countable}
+          />
+          <div
+            style={{
+              textAlign: "center",
+              height: "100%",
+              position: "relative"
+            }}
+          >
             <BackButton
               link={`/exercise/${this.props.match.params.workoutType}`}
             ></BackButton>
@@ -409,6 +425,7 @@ class PoseNet extends Component {
               playsInline
               ref={this.getVideo}
             />
+            {spin}
             <canvas className="webcam" ref={this.getCanvas} />
             <div
               style={{
