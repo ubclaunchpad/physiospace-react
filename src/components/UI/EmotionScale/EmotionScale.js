@@ -17,24 +17,22 @@ class EmotionScale extends Component {
         {" "}
         <Avatar
           onClick={this.props.function}
+          size={80}
           style={{ backgroundColor: "#E4300A" }}
-          icon="user"
+          icon="frown"
         />{" "}
         <Avatar
           onClick={this.props.function}
-          style={{ backgroundColor: "#f56a00" }}
-          icon="user"
-        />{" "}
-        <Avatar
-          onClick={this.props.function}
+          size={80}
           style={{ backgroundColor: "#ECE50B" }}
-          icon="user"
+          icon="meh"
         />{" "}
         <Avatar
           onClick={this.props.function}
+          size={80}
           style={{ backgroundColor: "#0CB404" }}
-          icon="user"
-        />
+          icon="smile"
+        />{" "}
       </div>
     );
   }
