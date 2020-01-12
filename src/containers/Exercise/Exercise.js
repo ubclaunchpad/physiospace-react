@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import BackButton from "../../components/UI/BackButton/BackButton";
 
 import { Row, Col } from 'antd';
 import { Typography } from 'antd';
