@@ -72,7 +72,7 @@ class Home extends Component {
             </Col>
           </Row>
           <Divider type="horizontal" />
-          <Row gutter={20}>
+          <Row className="containerr" gutter={20}>
             <Col span={12}>
               <Exercise
                 title={"Elbow Flexion"}

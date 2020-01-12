@@ -6,6 +6,7 @@ import Timer from "../../components/UI/Timer/Timer";
 import BackButton from "../../components/UI/BackButton/BackButton";
 import calculateElbowAngle from "./algorithms/calculateElbowAngle";
 import { Modal, Button } from "antd";
+
 import EmotionScale from "../../components/UI/EmotionScale/EmotionScale";
 import Sound from "../../components/UI/Sound/Sound";
 
@@ -282,20 +283,17 @@ class PoseNet extends Component {
     });
   };
 
-  handleOk = e => {
-    console.log(e);
+  handleDone = () => {
     this.setState({
-      visible: false
+      visible: false,
+      showThanks: false,
+      ranOut: true
     });
   };
 
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-      showThanks: false
-    });
-  };
+  componentDidUpdate() {
+    console.log("should have been rerendered")
+  }
 
   render() {
     if (this.state.ranOut === true) {
@@ -308,9 +306,10 @@ class PoseNet extends Component {
             <Modal
               title="How do you feel now?"
               visible={this.state.visible}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
+              onOk={()=>this.handleDone()}
+              onCancel={()=>this.handleDone()}
             >
+              <BackButton link={`/exercise/${this.props.match.params.workoutType}`}></BackButton>
               <h1> Feedback recorded </h1>
             </Modal>
           </div>
@@ -325,9 +324,10 @@ class PoseNet extends Component {
             <Modal
               title="How do you feel now?"
               visible={this.state.visible}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
+              onOk={()=>this.handleDone()}
+              onCancel={()=>this.handleDone()}
             >
+              
               <EmotionScale function={this.showThanks} />
             </Modal>
           </div>
@@ -336,14 +336,8 @@ class PoseNet extends Component {
     } else {
       return (
         <div class="workout">
-          <BackButton link="/exercise" exact></BackButton>
-          <div
-            style={{
-              textAlign: "center",
-              height: "100%",
-              position: "relative"
-            }}
-          >
+          <div style={{ textAlign: "center", height: "100%", position: "relative" }}>
+            <BackButton link={`/exercise/${this.props.match.params.workoutType}`}></BackButton>
             <video
               style={{ display: "none" }}
               id="videoNoShow"
