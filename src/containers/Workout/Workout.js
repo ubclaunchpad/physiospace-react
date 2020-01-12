@@ -1,14 +1,16 @@
 import { drawKeyPoints, drawSkeleton, drawAngle } from "./utils";
 import React, { Component } from "react";
-import * as posenet from '@tensorflow-models/posenet'
-import Timer from '../../components/UI/Timer/Timer'
+import * as posenet from "@tensorflow-models/posenet";
+import Timer from "../../components/UI/Timer/Timer";
 import BackButton from "../../components/UI/BackButton/BackButton";
-import calculateElbowAngle from "./algorithms/calculateElbowAngle"
+import calculateElbowAngle from "./algorithms/calculateElbowAngle";
+import { Modal, Button } from "antd";
+import EmotionScale from "../../components/UI/EmotionScale/EmotionScale";
 
 class PoseNet extends Component {
   static defaultProps = {
     videoWidth: window.innerWidth,
-    videoHeight: window.innerHeight-300,
+    videoHeight: window.innerHeight - 300,
     flipHorizontal: true,
     algorithm: "single-pose",
     showVideo: true,
@@ -26,14 +28,17 @@ class PoseNet extends Component {
   };
 
   constructor(props) {
-    super(props, PoseNet.defaultProps)
+    super(props, PoseNet.defaultProps);
     this.state = {
-        seconds: '00',
-        isClicked : false,
-        value: '2',
-        started: false,
-        paused: false
-    }
+      seconds: "00",
+      isClicked: false,
+      value: "2",
+      started: false,
+      paused: false,
+      ranOut: false,
+      visible: false,
+      showThanks: false
+    };
     this.secondsRemaining;
     this.intervalHandle;
     this.startCountDown = this.startCountDown.bind(this);
@@ -43,60 +48,60 @@ class PoseNet extends Component {
 
   tick() {
     var min = Math.floor(this.secondsRemaining / 60);
-    var sec = this.secondsRemaining - (min * 60);
+    var sec = this.secondsRemaining - min * 60;
 
     this.setState({
       value: min,
-      seconds: sec,
-    })
+      seconds: sec
+    });
 
     if (sec < 10) {
       this.setState({
-        seconds: "0" + this.state.seconds,
-      })
-
+        seconds: "0" + this.state.seconds
+      });
     }
 
     if (min < 10) {
       this.setState({
-        value: "0" + min,
-      })
-
+        value: "0" + min
+      });
     }
 
-    if (min === 0 & sec === 0) {
+    if ((min === 0) & (sec === 0)) {
       clearInterval(this.intervalHandle);
+      console.log("display feedback!!");
+      this.state.ranOut = true;
+      this.showModal();
     }
 
-
-    this.secondsRemaining--
+    this.secondsRemaining--;
   }
 
   startCountDown() {
     if (this.state.started == false) {
-        this.intervalHandle = setInterval(this.tick, 1000);
-        let time = this.state.value;
-        this.secondsRemaining = time * 60;
-        this.setState({
-            started : true,
-            paused: false,
-            isClicked: true
-          });
-    } else if(this.state.paused === true) {
-        this.intervalHandle = setInterval(this.tick, 1000);
-        this.setState({
-            isClicked : true,
-            paused: false
-          });
+      this.intervalHandle = setInterval(this.tick, 1000);
+      let time = this.state.value;
+      // this.secondsRemaining = time * 60;
+      this.secondsRemaining = 10;
+      this.setState({
+        started: true,
+        paused: false,
+        isClicked: true
+      });
+    } else if (this.state.paused === true) {
+      this.intervalHandle = setInterval(this.tick, 1000);
+      this.setState({
+        isClicked: true,
+        paused: false
+      });
     }
-    
   }
 
   pauseCountDown() {
     clearInterval(this.intervalHandle);
     this.setState({
-        paused: true
-    })
+      paused: true
+    });
   }
 
   getCanvas = elem => {
@@ -118,7 +123,7 @@ class PoseNet extends Component {
 
     try {
       this.posenet = await posenet.load({
-        architecture: 'ResNet50',
+        architecture: "ResNet50",
         outputStride: 32,
         inputResolution: { width: 257, height: 200 },
         quantBytes: 2
@@ -233,7 +238,7 @@ class PoseNet extends Component {
         canvasContext.restore();
       }
 
-      poses.forEach((pose) => {
+      poses.forEach(pose => {
         let { score, keypoints } = pose;
         if (score >= minPoseConfidence) {
           if (showPoints) {
@@ -261,28 +266,108 @@ class PoseNet extends Component {
     findPoseDetectionFrame();
   }
 
+  showModal = () => {
+    this.setState({
+      visible: true,
+      showThanks: false
+    });
+  };
+
+  showThanks = () => {
+    console.log(this.state);
+    this.setState({
+      showThanks: true
+    });
+  };
+
+  handleOk = e => {
+    console.log(e);
+    this.setState({
+      visible: false
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false,
+      showThanks: false
+    });
+  };
+
   render() {
-    return (
-      <div>
-        <BackButton link="/exercise" exact></BackButton>
+    if (this.state.ranOut === true) {
+      if (this.state.showThanks === true) {
+        return (
+          <div>
+            <Button type="primary" onClick={this.showModal}>
+              Open Modal
+            </Button>
+            <Modal
+              title="How do you feel now?"
+              visible={this.state.visible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+            >
+              <h1> Feedback recorded </h1>
+            </Modal>
+          </div>
+        );
+      } else if (this.state.visible === true) {
+        return (
+          <div>
+            <Button type="primary" onClick={this.showModal}>
+              Open Modal
+            </Button>
+            <Modal
+              title="How do you feel now?"
+              visible={this.state.visible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+            >
+              <EmotionScale function={this.showThanks} />
+            </Modal>
+          </div>
+        );
+      }
+    } else {
+      return (
         <div>
-        <div style={{ marginLeft: 130 }}>
-            <button className="btn btn-lg btn-success" onClick={this.startCountDown}>Start</button>
-            <button className="btn btn-lg btn-alert" onClick={this.pauseCountDown}>Pause</button>
+          <BackButton link="/exercise" exact></BackButton>
+          <div>
+            <div style={{ marginLeft: 130 }}>
+              <button
+                className="btn btn-lg btn-success"
+                onClick={this.startCountDown}
+              >
+                Start
+              </button>
+              <button
+                className="btn btn-lg btn-alert"
+                onClick={this.pauseCountDown}
+              >
+                Pause
+              </button>
+            </div>
+            <BackButton link="/exercise" exact></BackButton>
+            <Timer value={this.state.value} seconds={this.state.seconds} />
+            <video
+              style={{ display: "none" }}
+              id="videoNoShow"
+              playsInline
+              ref={this.getVideo}
+            />
+            <video
+              style={{ display: "none" }}
+              id="videoNoShow"
+              playsInline
+              ref={this.getVideo}
+            />
+            <canvas className="webcam" ref={this.getCanvas} />
+          </div>
         </div>
-        <BackButton link="/exercise" exact></BackButton>
-          <Timer value={this.state.value} seconds={this.state.seconds} />
-          <video style={{display: 'none'}} id="videoNoShow" playsInline ref={this.getVideo} />
-          <video
-            style={{ display: "none" }}
-            id="videoNoShow"
-            playsInline
-            ref={this.getVideo}
-          />
-          <canvas className="webcam" ref={this.getCanvas} />
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
