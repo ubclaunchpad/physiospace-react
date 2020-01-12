@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Exercise from "../../components/UI/Exercise/Exercise";
+import { Row, Col } from 'antd';
 
 class Home extends Component {
   render() {
