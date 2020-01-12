@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { Card } from "antd";
-import classes from "./Exercise.css";
 
 const { Meta } = Card;
 
 class Exercise extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div>
