@@ -42,7 +42,7 @@ class PoseNet extends Component {
       value: "2",
       started: false,
       paused: false,
-      ranOut: false,
+      completed: false,
       visible: false,
       showThanks: false,
 
@@ -69,8 +69,7 @@ class PoseNet extends Component {
 
     if(count >= targetCount) {
       clearInterval(this.intervalHandle);
-      console.log("display feedback!!");
-      this.state.ranOut = true;
+      this.state.completed = true;
       this.showModal();
     }
 
@@ -111,7 +110,7 @@ class PoseNet extends Component {
 
     if ((min === 0) & (sec === 0)) {
       clearInterval(this.intervalHandle);
-      this.state.ranOut = true;
+      this.state.completed = true;
       this.showModal();
     }
 
@@ -327,7 +326,6 @@ class PoseNet extends Component {
   };
 
   showThanks = () => {
-    console.log(this.state);
     this.setState({
       showThanks: true
     });
@@ -337,16 +335,13 @@ class PoseNet extends Component {
     this.setState({
       visible: false,
       showThanks: false,
-      ranOut: true
+      completed: true
     });
   };
 
-  componentDidUpdate() {
-    console.log("should have been rerendered");
-  }
-
   render() {
-    if (this.state.ranOut === true) {
+    console.log(this.state)
+    if (this.state.completed === true) {
       if (this.state.showThanks === true) {
         return (
           <div class="workout">
