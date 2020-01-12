@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tensorflow-models/posenet": "^2.2.1",
+    "@tensorflow/tfjs": "^1.5.1",
+    "@tensorflow/tfjs-core": "^1.5.1",
     "antd": "^3.26.6",
     "autoprefixer": "7.1.2",
     "axios": "^0.16.2",
