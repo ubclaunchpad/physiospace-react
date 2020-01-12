@@ -6,7 +6,8 @@ const { Meta } = Card;
 class Exercise extends Component {
   render() {
     return (
-      <div style={{ width: 300, height: 400 }}>
+      <div>
+
         <Card hoverable cover={<img alt="example" src={this.props.source} />}>
           <Meta title={this.props.title} description={this.props.description} />
         </Card>
