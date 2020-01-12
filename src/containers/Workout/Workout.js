@@ -4,21 +4,14 @@ import React, { Component } from "react";
 import * as posenet from "@tensorflow-models/posenet";
 import Timer from "../../components/UI/Timer/Timer";
 import BackButton from "../../components/UI/BackButton/BackButton";
-<<<<<<< HEAD
 import {calculateElbowAngle} from "./algorithms/helpers.js";
-=======
-import calculateElbowAngle from "./algorithms/calculateElbowAngle";
 import calculateLegAngle from "./algorithms/calculateLegAngle";
 import calculateKneeAngle from "./algorithms/calculateKneeAngle";
->>>>>>> f9e9833c6bc7157a20efd23903583a8fd4ca516e
 import { Modal, Button } from "antd";
 
 import EmotionScale from "../../components/UI/EmotionScale/EmotionScale";
-<<<<<<< HEAD
 import Counter from "./Counter";
-=======
 import Sound from "../../components/UI/Sound/Sound";
->>>>>>> f9e9833c6bc7157a20efd23903583a8fd4ca516e
 
 class PoseNet extends Component {
   static defaultProps = {
