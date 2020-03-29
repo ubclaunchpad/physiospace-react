@@ -33,8 +33,7 @@ Check out this link for a project demo: https://youtu.be/gNtLn0EDFeQ)
 
 ## The Tech
 ### Front-end
-@sophie these also need to filled in
-The mobile application was developed with *React Native*. We used *insert library name* for the AR, and *library name* for in-app pose detection.
+The mobile application was developed with *React Native*. We used *Tensorflow PoseNet ML model for computer vision* for the AR and in-app pose detection.
 ### Back-end
 On the back-end, we decided to train our own ML algorithm for pose detection. Our model is based off of the [Stacked Hourglass Network](https://arxiv.org/abs/1603.06937) for 2D Pose estimation from which we extrapolate to 3D using Facebook's [VideoPose3D model](https://github.com/facebookresearch/VideoPose3D). Built with Tensorflow and served with Flask.
 ### Infra/Cloud
