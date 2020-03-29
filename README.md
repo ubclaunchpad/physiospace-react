@@ -3,14 +3,15 @@ The Physio that’s always at your side
 
 ## Team members
  - Sophie - Team Lead & Front-end Developer
- - Liang - 
- - Adel -
- - Alice - 
- - Jacky - Back-end developer
- - Bebo -
- - Michael - 
- - Scarlet - 
- - Sergei - 
+ - Liang - Back-end & Front-end Developer
+ - Adel - Back-end & Front-end Developer
+ - Stephanie - Designer
+ - Alice - Designer
+ - Jacky - Back-end Developer
+ - Bebo - Back-end & Front-end Developer
+ - Michael - Front-end Developer
+ - Scarlet - Front-end Developer
+ - Sergei - Back-end Developer
 
 ## The Problem
 A specific application of physiotherapy is that joint movement may get limited through muscle atrophy, surgery, accident, stroke or other causes. Reportedly, up to 70% of patients give up physiotherapy too early — often because they cannot see the progress. Automated tracking of ROM via a mobile app could help patients reach their physiotherapy goals.
